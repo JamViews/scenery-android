@@ -2,4 +2,8 @@
     <string name="app_name">Scenery</string>
     <string name="taken_picture_description">The picture that was just taken.</string>
     <string name="change_facing_description">Change camera direction</string>
+    <string name="spotify_required">This app requires the Spotify app</string>
+    <string name="spotify_auth_text">We use Spotify to find suitable jams</string>
+    <string name="install_spotify">Install Spotify</string>
+    <string name="spotify_sign_in">Sign in to Spotify</string>
 </resources>

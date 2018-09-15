@@ -37,34 +37,39 @@
         app:layout_constraintTop_toBottomOf="@+id/appTitle" />
 
     <TextView
-        android:id="@+id/spotifyMissingText"
+        android:id="@+id/buttonDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="This app requires the Spotify app to work"
+        android:text="@string/spotify_required"
+        android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/installSpotifyButton"
+        app:layout_constraintBottom_toTopOf="@+id/actionButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/installSpotifyButton"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/actionButton"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="96dp"
         android:fontFamily="@font/lato_black"
-        android:text="Install Spotify"
+        android:text="@string/install_spotify"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        app:rippleColor="#FFFFFF"
+        app:backgroundTint="#00000000"
+        app:cornerRadius="4dp"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:foreground="@drawable/light_ripple"/>
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
