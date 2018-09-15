@@ -1,4 +1,4 @@
-package scenery.app
+package scenery.app.ui
 
 import android.graphics.Bitmap
 import android.util.Base64

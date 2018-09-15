@@ -4,12 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/base"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/signInButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Spotify Sign In"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <com.otaliastudios.cameraview.CameraView
             android:id="@+id/camera"
@@ -51,15 +61,15 @@
             android:id="@+id/switchFacing"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:contentDescription="@string/change_facing_description"
-            android:background="#00000000"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="72dp"
+            android:background="#00000000"
+            android:contentDescription="@string/change_facing_description"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_camera_front_black_24dp"
             android:tint="#FFFFFF"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            android:foreground="?attr/selectableItemBackgroundBorderless"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
