@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Scenery</string>
+    <string name="taken_picture_description">The picture that was just taken.</string>
 </resources>
