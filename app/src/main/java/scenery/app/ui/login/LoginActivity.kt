@@ -1,5 +1,6 @@
 package scenery.app.ui.login
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,6 +14,7 @@ import com.spotify.sdk.android.authentication.AuthenticationResponse
 import kotlinx.android.synthetic.main.activity_login.*
 import scenery.app.R
 import scenery.app.ui.MainActivity
+import scenery.app.utils.dp
 
 class LoginActivity : AppCompatActivity() {
 
@@ -80,7 +82,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val CLIENT_ID = "9b86b4fe13c545c894a5d08db4a86a2f"
+        const val CLIENT_ID = "9b86b4fe13c545c894a5d08db4a86a2f"
         private const val REQUEST_CODE = 1337
     }
 

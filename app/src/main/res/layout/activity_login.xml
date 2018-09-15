@@ -4,9 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.login.LoginActivity"
-    android:background="@drawable/background6"
-    tools:background="#000000">
+    tools:background="#000000"
+    tools:context=".ui.login.LoginActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/background6" />
 
     <TextView
         android:id="@+id/appTitle"
@@ -60,16 +71,60 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="96dp"
         android:fontFamily="@font/lato_black"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
         android:text="@string/install_spotify"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
-        app:rippleColor="#FFFFFF"
+        android:textSize="16sp"
         app:backgroundTint="#00000000"
         app:cornerRadius="4dp"
-        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:rippleColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/cameraPermissionText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="64dp"
+        android:text="We need the camera permission in order to take photos"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/permissionsButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.75"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:visibility="gone"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/permissionsButton"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/lato_black"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:text="Grant Permissions"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        app:backgroundTint="#00000000"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/buttonDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cameraPermissionText" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

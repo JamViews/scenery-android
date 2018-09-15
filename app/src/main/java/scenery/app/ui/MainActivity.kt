@@ -1,25 +1,40 @@
 package scenery.app.ui
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.palette.graphics.Palette
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.otaliastudios.cameraview.CameraListener
 import com.otaliastudios.cameraview.Facing
 import com.otaliastudios.cameraview.Gesture
 import com.otaliastudios.cameraview.GestureAction
+import com.spotify.android.appremote.api.SpotifyAppRemote
 import kotlinx.android.synthetic.main.activity_main.*
 import scenery.app.R
 import scenery.app.ui.login.LoginActivity
+import com.spotify.android.appremote.api.ConnectionParams
+import com.spotify.android.appremote.api.Connector
+import scenery.app.ui.login.LoginActivity.Companion.CLIENT_ID
+
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainViewModel
+
+    private val bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout> by lazy { BottomSheetBehavior.from<ConstraintLayout>(bottomSheet) }
+
+    private lateinit var spotifyAppRemote: SpotifyAppRemote
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +50,24 @@ class MainActivity : AppCompatActivity() {
         }
 
         setSupportActionBar(toolbar)
+
+        // Set the Spotify connection parameters
+        val connectionParams = ConnectionParams.Builder(CLIENT_ID)
+                .setRedirectUri("sceneryapp://callback")
+                .showAuthView(true)
+                .build()
+        SpotifyAppRemote.CONNECTOR.connect(this, connectionParams, object : Connector.ConnectionListener {
+            override fun onFailure(throwable: Throwable?) {
+                throwable?.printStackTrace()
+            }
+
+            override fun onConnected(remote: SpotifyAppRemote?) {
+                spotifyAppRemote = remote!!
+            }
+        })
+
+        // Hide the bottom sheet by default
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
         // Handle display cutouts/notches when necessary.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
@@ -74,17 +107,37 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
-        viewModel.photoData.observe(this, Observer {
-            if (it != null) {
-                takenImage.setImageBitmap(it)
+        playButton.setOnClickListener {
+            if (::spotifyAppRemote.isInitialized) {
+                spotifyAppRemote.playerApi.play("spotify:user:spotify:playlist:37i9dQZF1DXdPec7aLTmlC")
+            }
+        }
+
+        viewModel.photoData.observe(this, Observer { bitmap ->
+            if (bitmap != null) {
+                takenImage.setImageBitmap(bitmap)
                 takenImage.visibility = View.VISIBLE
                 button.visibility = View.GONE
                 switchFacing.visibility = View.GONE
+
+                Palette.from(bitmap).generate {
+                    val swatch = it?.lightVibrantSwatch ?: it?.darkVibrantSwatch ?: it?.lightMutedSwatch ?: it?.darkMutedSwatch ?: it?.dominantSwatch ?: return@generate
+
+                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                    bottomSheet.setBackgroundColor(swatch.rgb)
+                    moodTitle.setTextColor(swatch.titleTextColor)
+
+                    playButton.iconTint = ColorStateList.valueOf(swatch.titleTextColor)
+                    playButton.rippleColor = ColorStateList.valueOf(swatch.titleTextColor)
+                }
+
             } else {
                 takenImage.setImageBitmap(null)
                 takenImage.visibility = View.GONE
                 button.visibility = View.VISIBLE
                 switchFacing.visibility = View.VISIBLE
+
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             }
         })
 
@@ -105,6 +158,11 @@ class MainActivity : AppCompatActivity() {
         } else {
             super.onBackPressed()
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
 }
