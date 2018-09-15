@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.otaliastudios.cameraview.CameraUtils
+import com.otaliastudios.cameraview.Facing
 
 class MainViewModel : ViewModel() {
 
@@ -15,10 +16,33 @@ class MainViewModel : ViewModel() {
     // Stores a copy of the raw byte data for the image that is captured.
     private var rawPhotoData: ByteArray? = null
 
+    private val _cameraFacing = MutableLiveData<Facing>()
+    val cameraFacing: LiveData<Facing> = _cameraFacing
+
+    init {
+        _cameraFacing.value = Facing.BACK
+    }
+
     fun updatePhotoData(jpeg: ByteArray?) {
-        CameraUtils.decodeBitmap(jpeg) {
-            _photoData.postValue(it)
-            rawPhotoData = jpeg
+        if (jpeg != null) {
+            CameraUtils.decodeBitmap(jpeg) {
+                _photoData.postValue(it)
+            }
+        } else {
+            _photoData.value = null
+        }
+
+        rawPhotoData = jpeg
+    }
+
+    /**
+     * Toggles the direction the camera is facing.
+     */
+    fun toggleCameraFacing() {
+        if (_cameraFacing.value == Facing.BACK) {
+            _cameraFacing.value = Facing.FRONT
+        } else if (_cameraFacing.value == Facing.FRONT) {
+            _cameraFacing.value = Facing.BACK
         }
     }
 

@@ -7,10 +7,7 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.otaliastudios.cameraview.CameraListener
-import com.otaliastudios.cameraview.CameraUtils
-import com.otaliastudios.cameraview.Gesture
-import com.otaliastudios.cameraview.GestureAction
+import com.otaliastudios.cameraview.*
 import kotlinx.android.synthetic.main.activity_main.*
 import scenery.app.utils.runOnWorkerThread
 
@@ -55,15 +52,31 @@ class MainActivity : AppCompatActivity() {
             camera.capturePicture()
         }
 
+        switchFacing.setOnClickListener {
+            viewModel.toggleCameraFacing()
+        }
+
         viewModel.photoData.observe(this, Observer {
             if (it != null) {
                 takenImage.setImageBitmap(it)
                 takenImage.visibility = View.VISIBLE
                 button.visibility = View.GONE
+                switchFacing.visibility = View.GONE
             } else {
                 takenImage.setImageBitmap(null)
                 takenImage.visibility = View.GONE
                 button.visibility = View.VISIBLE
+                switchFacing.visibility = View.VISIBLE
+            }
+        })
+
+        viewModel.cameraFacing.observe(this, Observer {
+            it ?: return@Observer
+
+            camera.facing = it
+            when (it) {
+                Facing.BACK -> switchFacing.setImageResource(R.drawable.ic_camera_front_black_24dp)
+                Facing.FRONT -> switchFacing.setImageResource(R.drawable.ic_camera_rear_black_24dp)
             }
         })
     }
