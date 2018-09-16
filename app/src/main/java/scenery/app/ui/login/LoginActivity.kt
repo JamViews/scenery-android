@@ -35,7 +35,7 @@ class LoginActivity : AppCompatActivity() {
                     val builder = AuthenticationRequest.Builder(CLIENT_ID, AuthenticationResponse.Type.TOKEN,
                             "sceneryapp://callback")
 
-                    builder.setScopes(arrayOf("streaming"))
+                    builder.setScopes(arrayOf("streaming", "app-remote-control"))
                     val request = builder.build()
 
                     AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request)

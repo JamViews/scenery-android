@@ -8,4 +8,5 @@
     <string name="spotify_sign_in">Sign in to Spotify</string>
     <string name="background">Background</string>
     <string name="playlist_image">Playlist Image</string>
+    <string name="settings">Settings</string>
 </resources>

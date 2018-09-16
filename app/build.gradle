@@ -61,8 +61,6 @@ dependencies {
     implementation 'com.google.dagger:dagger-android-support:2.15'
     kapt 'com.google.dagger:dagger-android-processor:2.16'
 
-    implementation 'org.tensorflow:tensorflow-android:1.10.0'
-
     implementation 'com.spotify.android:auth:1.1.0'
     implementation project(':spotify-app-remote')
 

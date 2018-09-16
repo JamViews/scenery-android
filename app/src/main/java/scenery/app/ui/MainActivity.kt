@@ -162,6 +162,12 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    override fun onStop() {
+        super.onStop()
+
+        SpotifyAppRemote.CONNECTOR.disconnect(spotifyAppRemote)
+    }
+
     override fun onBackPressed() {
         if (viewModel.photoData.value != null) {
             viewModel.updatePhotoData(null)
