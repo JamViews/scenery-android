@@ -15,6 +15,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
+import org.tensorflow.contrib.android.TensorFlowInferenceInterface
 import scenery.app.data.ApiServiceProvider
 import scenery.app.data.Request
 import scenery.app.data.Response
@@ -68,7 +69,7 @@ class MainViewModel : ViewModel() {
     }
 
     fun getSongs(context: Context) {
-        CameraUtils.decodeBitmap(rawPhotoData) { bitmap ->
+        /*CameraUtils.decodeBitmap(rawPhotoData) { bitmap ->
             val scaled = Bitmap.createScaledBitmap(bitmap, bitmap.width / 3, bitmap.height / 3, false)
 
             val stream = ByteArrayOutputStream()
@@ -91,7 +92,11 @@ class MainViewModel : ViewModel() {
                         it.printStackTrace()
                     })
                     .addTo(disposables)
-        }
+        }*/
+
+        val tensorInterface = TensorFlowInferenceInterface(context.assets, "graph.pb")
+
+        //tensorInterface.fet
     }
 
 }

@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         setSupportActionBar(toolbar)
+        supportActionBar?.title = ""
 
         // Set the Spotify connection parameters
         val connectionParams = ConnectionParams.Builder(CLIENT_ID)
@@ -126,6 +127,9 @@ class MainActivity : AppCompatActivity() {
 
                     bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
                     bottomSheet.setBackgroundColor(swatch.rgb)
+
+
+
                     moodTitle.setTextColor(swatch.titleTextColor)
 
                     playButton.iconTint = ColorStateList.valueOf(swatch.titleTextColor)
