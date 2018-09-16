@@ -65,4 +65,7 @@ dependencies {
 
     implementation 'com.spotify.android:auth:1.1.0'
     implementation project(':spotify-app-remote')
+
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    kapt 'com.github.bumptech.glide:compiler:4.8.0'
 }

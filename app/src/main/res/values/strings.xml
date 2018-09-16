@@ -7,4 +7,5 @@
     <string name="install_spotify">Install Spotify</string>
     <string name="spotify_sign_in">Sign in to Spotify</string>
     <string name="background">Background</string>
+    <string name="playlist_image">Playlist Image</string>
 </resources>

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.spotify.android.appremote.api.SpotifyAppRemote
 import kotlinx.android.synthetic.main.playlist_item.view.*
 import scenery.app.R
@@ -40,6 +41,8 @@ class PlaylistsAdapter(private val data: SpotifyBody,
 
             itemView.name.setTextColor(swatch.titleTextColor)
             itemView.author.setTextColor(swatch.titleTextColor)
+
+            Glide.with(itemView).load(item.images[0].url).into(itemView.playlistCover)
         }
 
     }
