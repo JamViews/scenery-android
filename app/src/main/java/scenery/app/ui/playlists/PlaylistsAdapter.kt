@@ -40,7 +40,7 @@ class PlaylistsAdapter(private val data: SpotifyBody,
             itemView.author.text = item.owner.displayName
 
             itemView.name.setTextColor(swatch.titleTextColor)
-            itemView.author.setTextColor(swatch.titleTextColor)
+            itemView.author.setTextColor(swatch.bodyTextColor)
 
             Glide.with(itemView).load(item.images[0].url).into(itemView.playlistCover)
         }

@@ -26,6 +26,7 @@ import scenery.app.ui.login.LoginActivity
 import com.spotify.android.appremote.api.ConnectionParams
 import com.spotify.android.appremote.api.Connector
 import scenery.app.ui.login.LoginActivity.Companion.CLIENT_ID
+import scenery.app.ui.playlists.PlaylistsAdapter
 
 
 class MainActivity : AppCompatActivity() {
@@ -129,7 +130,11 @@ class MainActivity : AppCompatActivity() {
 
                     playButton.iconTint = ColorStateList.valueOf(swatch.titleTextColor)
                     playButton.rippleColor = ColorStateList.valueOf(swatch.titleTextColor)
+
+                    viewModel.currentSwatch = swatch
                 }
+
+                viewModel.getSongs(this)
 
             } else {
                 takenImage.setImageBitmap(null)
@@ -139,6 +144,11 @@ class MainActivity : AppCompatActivity() {
 
                 bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             }
+        })
+
+        viewModel.generatedPlaylistData.observe(this, Observer {
+            moodTitle.text = it.key
+            recyclerView.adapter = PlaylistsAdapter(it.body, this, viewModel.currentSwatch, spotifyAppRemote)
         })
 
         viewModel.cameraFacing.observe(this, Observer {

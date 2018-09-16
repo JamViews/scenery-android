@@ -11,7 +11,7 @@ object ApiServiceProvider {
         return Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl("https://jam-views.azurewebsites.net/")
+                .baseUrl("https://polar-lowlands-91200.herokuapp.com/")
                 .build()
                 .create(ApiService::class.java)
     }

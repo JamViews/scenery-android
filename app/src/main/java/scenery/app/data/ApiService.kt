@@ -8,6 +8,6 @@ import scenery.app.data.spotify.SpotifyBody
 interface ApiService {
 
     @POST("/spotify")
-    fun getPlaylists(@Body body: Request): Single<SpotifyBody>
+    fun getPlaylists(@Body body: Request): Single<Response>
 
 }

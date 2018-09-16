@@ -11,6 +11,6 @@ data class Item(val collaborative: Boolean,
                 val owner: Owner,
                 val public: Boolean?,
                 @SerializedName("snapshot_id") val snapshotId: String,
-                val tracks: List<Track>,
+                val tracks: Track,
                 val type: String,
                 val uri: String)
