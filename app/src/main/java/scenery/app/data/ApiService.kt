@@ -2,12 +2,14 @@ package scenery.app.data
 
 import io.reactivex.Single
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Query
 import scenery.app.data.spotify.SpotifyBody
 
 interface ApiService {
 
-    @POST("/spotify")
-    fun getPlaylists(@Body body: Request): Single<Response>
+    @GET("/search")
+    fun getPlaylists(@Query("q") query: String, @Query("type") type: String = "playlist"): Single<SpotifyBody>
 
 }

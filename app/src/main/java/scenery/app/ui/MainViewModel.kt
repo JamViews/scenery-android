@@ -20,6 +20,13 @@ import scenery.app.data.ApiServiceProvider
 import scenery.app.data.Request
 import scenery.app.data.Response
 import java.io.ByteArrayOutputStream
+import android.R.attr.bitmap
+import android.opengl.ETC1.getHeight
+import android.opengl.ETC1.getWidth
+import io.reactivex.rxkotlin.subscribeBy
+import scenery.app.ImageClassifier
+import kotlin.math.max
+
 
 class MainViewModel : ViewModel() {
 
@@ -69,8 +76,51 @@ class MainViewModel : ViewModel() {
     }
 
     fun getSongs(context: Context) {
-        /*CameraUtils.decodeBitmap(rawPhotoData) { bitmap ->
-            val scaled = Bitmap.createScaledBitmap(bitmap, bitmap.width / 3, bitmap.height / 3, false)
+        val imageClassifier = ImageClassifier(context.assets)
+
+
+        // TODO: 1. Process bitmap image to feed into TF
+        // TODO: 2. Let TF process and classify image
+        // TODO: 3. Fetch output node values into a priority queue to determine best match
+        // TODO: 4. Perform Spotify search and display results. Ez.
+
+        CameraUtils.decodeBitmap(rawPhotoData) { bitmap ->
+
+            imageClassifier.recognizeImage(bitmap).subscribeBy {
+                Log.d("MainViewModel", "Size: ${it.size}")
+            }
+        }
+
+            /*val scaled = Bitmap.createScaledBitmap(bitmap, bitmap.width / 4, bitmap.height / 4, false)
+
+            val inputSize = max(scaled.width, scaled.height)
+
+            val imageMean = 0
+            val imageStd = 255
+
+            val intValues = IntArray(inputSize * inputSize)
+            val floatValues = FloatArray(inputSize * inputSize * 3)
+
+            // Preprocess the image data from 0-255 int to normalized float based
+            // on the provided parameters.
+            scaled.getPixels(intValues, 0, scaled.width, 0, 0, scaled.width, scaled.height)
+            for (i in 0 until intValues.size) {
+                val `val` = intValues[i]
+                floatValues[i * 3 + 0] = (((`val` shr 16 and 0xFF) - imageMean) / imageStd).toFloat()
+                floatValues[i * 3 + 1] = (((`val` shr 8 and 0xFF) - imageMean) / imageStd).toFloat()
+                floatValues[i * 3 + 2] = (((`val` and 0xFF) - imageMean) / imageStd).toFloat()
+            }
+
+            val tensorInterface = TensorFlowInferenceInterface(context.assets, "graph.pb")
+
+            tensorInterface.feed("input/BottleneckInputPlaceholder", floatValues, 1, inputSize.toLong(), inputSize.toLong(), 3)
+
+            tensorInterface.run(arrayOf("final_result"))
+
+            val output = FloatArray(8)
+            tensorInterface.fetch("final_result", output)
+        }*/
+            /*val scaled = Bitmap.createScaledBitmap(bitmap, bitmap.width / 3, bitmap.height / 3, false)
 
             val stream = ByteArrayOutputStream()
             scaled.compress(Bitmap.CompressFormat.JPEG, 90, stream)
@@ -94,9 +144,9 @@ class MainViewModel : ViewModel() {
                     .addTo(disposables)
         }*/
 
-        val tensorInterface = TensorFlowInferenceInterface(context.assets, "graph.pb")
 
-        //tensorInterface.fet
+
+
     }
 
 }

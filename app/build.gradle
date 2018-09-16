@@ -7,6 +7,13 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
+
+    aaptOptions {
+        noCompress "tflite"
+        noCompress "lite"
+        noCompress "pb"
+    }
+
     compileSdkVersion 28
     defaultConfig {
         applicationId "scenery.app"
@@ -67,5 +74,6 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     kapt 'com.github.bumptech.glide:compiler:4.8.0'
 
+    implementation 'org.tensorflow:tensorflow-lite:1.10.0'
     implementation 'org.tensorflow:tensorflow-android:1.10.0'
 }

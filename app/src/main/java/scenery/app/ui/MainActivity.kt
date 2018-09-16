@@ -169,7 +169,9 @@ class MainActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
 
-        SpotifyAppRemote.CONNECTOR.disconnect(spotifyAppRemote)
+        if (::spotifyAppRemote.isInitialized) {
+            SpotifyAppRemote.CONNECTOR.disconnect(spotifyAppRemote)
+        }
     }
 
     override fun onBackPressed() {
